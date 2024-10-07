@@ -1,29 +1,33 @@
 package com.example.latbaru
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.latbaru.adapter.BuahAdapter
-import com.example.latbaru.model.Mocklist
-import com.example.latbaru.model.ModelBuah
 
-private lateinit var rv_buah: RecyclerView
+class DetailMovie : AppCompatActivity() {
+    private lateinit var txtKudulMovie: TextView
+    private lateinit var gambarMovie: ImageView
 
-class RecycleBuahImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_recycle_buah)
+        setContentView(R.layout.activity_detail_movie)
 
-        rv_buah = findViewById(R.id.rv_buah)
-        rv_buah.layoutManager = GridLayoutManager(this, 1,GridLayoutManager.VERTICAL, false)
+        txtKudulMovie = findViewById(R.id.txtKudulMovie)
+        gambarMovie = findViewById(R.id.gambarMovie)
 
-        val adapter = BuahAdapter(Mocklist.getModel() as ArrayList<ModelBuah>, this)
-        rv_buah.adapter = adapter
+        val detailText = intent.getStringExtra("judul")
+        val detailImage = intent.getIntExtra("image", 0)
+
+        // Set data ke widget
+        txtKudulMovie.setText(detailText)
+        gambarMovie.setImageResource(detailImage)
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
